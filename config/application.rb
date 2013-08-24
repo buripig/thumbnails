@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'pp'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -32,6 +33,8 @@ module Thumbnails
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -58,5 +61,20 @@ module Thumbnails
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+    
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    
+    config.colorize_logging = false
+    
+    #common
+    config.common = {
+      email_from: "root@buripig.jp",
+      stakeholder_emails: ["buripig@gmail.com"],
+      exception_mail_enable: false
+    }
   end
 end
