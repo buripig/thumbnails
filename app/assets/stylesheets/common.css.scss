@@ -1,0 +1,163 @@
+/*
+ * bootstrap fix
+ */
+
+body {
+  margin-top: 50px;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  padding: 1px 6px;
+  margin-bottom: 0;
+}
+
+select {
+  width: auto;
+}
+
+input,
+textarea,
+.uneditable-input {
+  width: auto;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0px 0 0;
+}
+
+table caption {
+  padding: 5px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 140%;
+  color: #777;
+}
+
+label {
+  display: inline;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.btn {
+  padding: 1px 8px;
+}
+
+.navbar .brand {
+  padding-left: 30px;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  background-image: url("glyphicons-halflings.png");
+}
+
+.icon-white,
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:focus > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > li > a:focus > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"],
+.dropdown-submenu:hover > a > [class^="icon-"],
+.dropdown-submenu:focus > a > [class^="icon-"],
+.dropdown-submenu:hover > a > [class*=" icon-"],
+.dropdown-submenu:focus > a > [class*=" icon-"] {
+  background-image: url("glyphicons-halflings-white.png");
+}
+
+form {
+  margin: 0;
+}
+
+/*
+ * rails basic
+ */
+
+div.flash-alert {
+  padding: 5px;
+  margin: 5px 0px;
+  color: red;
+  background-color: #fee;
+  border: solid 1px #f99;
+  border-radius: 10px;
+}
+div.flash-notice {
+  padding: 5px;
+  margin: 5px 0px;
+  color: green;
+  background-color: #efe;
+  border: solid 1px #9f9;
+  border-radius: 10px;
+}
+
+.field_with_errors {
+  border: solid 1px red !important;
+}
+input[type="checkbox"].field_with_errors, input[type="radio"].field_with_errors {
+  outline: solid 1px red !important;
+}
+.field_error_message {
+  color: red;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+/*
+ * app basic
+ */
+
+div.main-area {
+  padding-bottom: 20px;
+}
+
+.clear {
+  clear:both;
+  line-height:0;
+  width:1px;
+  height:1px;
+  font-size:0;
+  margin:0;
+  padding:0;
+  border:0;
+}
+
+.table-bordered {
+  
+  th {
+    background-color: #eee;
+  }
+  
+  tfoot tr {
+    background-color: #ffe;
+  }
+  
+  tr.disabled {
+    background-color: #ccc;
+  }
+}
+
+

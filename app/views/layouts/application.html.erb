@@ -1,14 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <title>Thumbnails</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= favicon_link_tag "favicon.ico" %>
+  <%= tag :link, rel: "apple-touch-icon", type: "image/vnd.microsoft.icon", href: path_to_image("favicon.ico") %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div class="navbar  navbar-fixed-top">
+    <div class="navbar-inner">
+      <%=link_to "Thumbnails", :root, :class => "brand" %>
+      <%
+      menus = [
+        {text: "TOP", url: root_path, token: "index"},
+      ]
+      %>
+      <ul class="nav">
+        <% menus.each do |menu| %>
+          <% if menu[:url].class != Array %>
+            <li<% if menu[:token] == menu_token %> class="active"<% end %>>
+              <a href="<%= menu[:url] %>"><%= menu[:text] %></a>
+            </li>
+          <% else %>
+            <li class="dropdown<% if menu[:token] == menu_token %> active<% end %>">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= menu[:text] %> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <% menu[:url].each do |sub_menu| %>
+                  <li<% if menu[:token] == menu_token && sub_menu[:token] == sub_menu_token %> class="active"<% end %>><a href="<%= sub_menu[:url] %>"><%= sub_menu[:text] %></a></li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid main-area">
+    <% if alert.presence %><div class="flash-alert"><%= alert %></div><% end %>
+    <% if notice.presence %><div class="flash-notice"><%= notice %></div><% end %>
+    <%= yield %>
+  </div>
+  <%= javascript_include_tag "application" %>
 </body>
 </html>
