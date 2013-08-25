@@ -158,6 +158,10 @@ div.main-area {
   tr.disabled {
     background-color: #ccc;
   }
+  
+  td, th {
+    word-break: break-all;
+  }
 }
 
 

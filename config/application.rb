@@ -74,7 +74,11 @@ module Thumbnails
     config.common = {
       email_from: "root@buripig.jp",
       stakeholder_emails: ["buripig@gmail.com"],
-      exception_mail_enable: false
+      exception_mail_enable: false,
+      window_width: 1024,
+      window_height: 768,
+      stored_width: 512,
+      stored_height: 384,
     }
   end
 end

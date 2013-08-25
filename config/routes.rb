@@ -1,6 +1,9 @@
 Thumbnails::Application.routes.draw do
   scope "manage" do
-    resources :screenshots, only: [:index, :create, :destroy]
+    resources :screenshots, only: [:index, :create, :destroy] do
+      post :capture, on: :member
+      get :image, on: :member
+    end
   end
 
   root :to => 'index#index'

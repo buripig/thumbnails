@@ -2,7 +2,7 @@ class ScreenshotsController < ApplicationController
   
   def index
     @screenshot = Screenshot.new
-    @screenshots = Screenshot.all
+    @screenshots = Screenshot.select("id, url, status, captured_at, accessed_at, created_at").order("id DESC")
   end
   
   def create
@@ -22,6 +22,19 @@ class ScreenshotsController < ApplicationController
       @screenshot.destroy
     end
     redirect_to screenshots_url
+  end
+  
+  def capture
+    @screenshot = Screenshot.find(params[:id])
+    Screenshot.transaction do
+      @screenshot.capture
+    end
+    redirect_to screenshots_url
+  end
+  
+  def image
+    @screenshot = Screenshot.find(params[:id])
+    send_data(@screenshot.image, type: "image/#{ScreenshotUtil::FORMAT}", disposition: "inline")
   end
   
   private

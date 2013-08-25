@@ -18,13 +18,13 @@
 
 <table class="table table-bordered">
   <caption><%= model_name %>一覧</caption>
-  <col width="30%">
-  <col width="">
+  <col width="20%">
+  <col width="38%">
+  <col width="8%">
+  <col width="8%">
+  <col width="8%">
+  <col width="8%">
   <col width="10%">
-  <col width="12%">
-  <col width="12%">
-  <col width="12%">
-  <col width="12%">
   <thead>
     <tr>
       <th><%= attr_name :url %></th>
@@ -43,21 +43,23 @@
         <%= link_to screenshot.url, screenshot.url, target: :_blank %>
       </td>
       <td>
-        
+        <% if screenshot.status == ScreenshotStatus.captured.value %><%= tag :image, src: image_screenshot_path(screenshot), class: "original-image" %><% end %>
       </td>
       <td>
         <%= screenshot_status screenshot.status %>
       </td>
       <td>
-        <%= datetime screenshot.created_at %>
+        <%= datetime screenshot.created_at, "%y/%m/%d %H:%M:%S" %>
       </td>
       <td>
-        <%= datetime screenshot.captured_at %>
+        <%= datetime screenshot.captured_at, "%y/%m/%d %H:%M:%S" %>
       </td>
       <td>
-        <%= datetime screenshot.accessed_at %>
+        <%= datetime screenshot.accessed_at, "%y/%m/%d %H:%M:%S" %>
       </td>
       <td>
+        <%= link_to "キャプチャ", capture_screenshot_path(screenshot), method: :post, data: { confirm: "キャプチャしてよろしいですか？" }, class: "btn" %>
+        &nbsp;&nbsp;
         <%= link_to '削除', screenshot, method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-danger" %>
       </td>
     </tr>
