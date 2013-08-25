@@ -32,4 +32,28 @@ module CommonHelper
     controller.controller_name.classify.constantize rescue nil
   end
   
+  def strftime(value, clazz, format)
+    return "" if value.blank?
+    unless value.respond_to?(:strftime)
+      begin
+        value = clazz.parse(value)
+      rescue
+        return ""
+      end
+    end
+    value.strftime(format)
+  end
+  
+  def date(value, format="%Y/%m/%d")
+    strftime(value, Date, format)
+  end
+  
+  def datetime(value, format="%Y/%m/%d %H:%M:%S")
+    strftime(value, DateTime, format)
+  end
+  
+  def time(value, format="%H:%M:%S")
+    strftime(value, Time, format)
+  end
+  
 end

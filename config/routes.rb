@@ -1,4 +1,8 @@
 Thumbnails::Application.routes.draw do
+  scope "manage" do
+    resources :screenshots, only: [:index, :create, :destroy]
+  end
+
   root :to => 'index#index'
   
   # The priority is based upon order of creation:

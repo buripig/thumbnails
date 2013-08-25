@@ -1,0 +1,66 @@
+<%= form_for @screenshot do |f| %>
+<table class="table table-bordered">
+  <caption><%= model_name %>登録</caption>
+  <col width="20%">
+  <col width="80%">
+  <tbody>
+    <tr>
+      <th><%= attr_name :url %></th>
+      <td>
+        <%= f.text_field :url, size: 100 %>
+        <%= f.errors :url %>
+        <%= f.submit "登録", class: "btn btn-primary" %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<% end %>
+
+<table class="table table-bordered">
+  <caption><%= model_name %>一覧</caption>
+  <col width="30%">
+  <col width="">
+  <col width="10%">
+  <col width="12%">
+  <col width="12%">
+  <col width="12%">
+  <col width="12%">
+  <thead>
+    <tr>
+      <th><%= attr_name :url %></th>
+      <th><%= attr_name :image %></th>
+      <th><%= attr_name :status %></th>
+      <th><%= attr_name :created_at %></th>
+      <th><%= attr_name :captured_at %></th>
+      <th><%= attr_name :accessed_at %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @screenshots.each do |screenshot| %>
+    <tr>
+      <td>
+        <%= link_to screenshot.url, screenshot.url, target: :_blank %>
+      </td>
+      <td>
+        
+      </td>
+      <td>
+        <%= screenshot_status screenshot.status %>
+      </td>
+      <td>
+        <%= datetime screenshot.created_at %>
+      </td>
+      <td>
+        <%= datetime screenshot.captured_at %>
+      </td>
+      <td>
+        <%= datetime screenshot.accessed_at %>
+      </td>
+      <td>
+        <%= link_to '削除', screenshot, method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-danger" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

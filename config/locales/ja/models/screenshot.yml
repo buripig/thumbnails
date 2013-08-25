@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    models:
+      screenshot: Screenshot
+    attributes:
+      screenshot:
+        url: URL
+        status: ステータス
+        image: キャプチャ画像
+        created_at: 登録日時
+        captured_at: キャプチャ日時
+        accessed_at: 最終アクセス日時
