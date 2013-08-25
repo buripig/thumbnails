@@ -24,4 +24,14 @@ class ScreenshotsController < ApplicationController
     redirect_to screenshots_url
   end
   
+  private
+  
+  def menu_token
+    "manage"
+  end
+  
+  def sub_menu_token
+    "screenshot"
+  end
+  
 end

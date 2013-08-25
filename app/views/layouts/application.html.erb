@@ -14,6 +14,9 @@
       <%
       menus = [
         {text: "TOP", url: root_path, token: "index"},
+        {text: "管理", url: [
+            {text: "Screenshot", url: screenshots_path, token: "screenshot"},
+          ], token: "manage"},
       ]
       %>
       <ul class="nav">
