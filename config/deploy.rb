@@ -50,6 +50,7 @@ namespace :deploy do
   task :restart, :roles => :web do
     run "touch #{current_path}/tmp/restart.txt"
     run "wget -O- http://thumbnails.buripig.jp/ > /dev/null"
+    run "RAILS_ENV=production #{current_path}/script/delayed_job restart"
   end
 end
 

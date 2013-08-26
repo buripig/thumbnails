@@ -7,7 +7,7 @@ class ScreenshotsController < ApplicationController
   
   def create
     @screenshot = Screenshot.new(params[:screenshot])
-    @screenshot.status = ScreenshotStatus.waiing.value
+    @screenshot.status = ScreenshotStatus.waiting.value
     Screenshot.transaction do
       @screenshot.save!
     end
@@ -24,17 +24,18 @@ class ScreenshotsController < ApplicationController
     redirect_to screenshots_url
   end
   
-  def capture
-    @screenshot = Screenshot.find(params[:id])
-    Screenshot.transaction do
-      @screenshot.capture
-    end
-    redirect_to screenshots_url
-  end
-  
   def image
     @screenshot = Screenshot.find(params[:id])
-    send_data(@screenshot.image, type: "image/#{ScreenshotUtil::FORMAT}", disposition: "inline")
+    if @screenshot.captured?
+      data = @screenshot.image
+    elsif @screenshot.waiting?
+      dbg @screenshot
+      data = File.read("#{Rails.root}/app/assets/images/now_printing.jpg")
+      dbg data
+    elsif @screenshot.error?
+      data = File.read("#{Rails.root}/app/assets/images/capture_error.jpg")
+    end
+    send_data(data, type: "image/#{ScreenshotUtil::FORMAT}", disposition: "inline")
   end
   
   private

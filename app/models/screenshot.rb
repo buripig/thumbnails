@@ -6,6 +6,8 @@ class Screenshot < ActiveRecord::Base
   
   enum :status, ScreenshotStatus
   
+  after_create :delayed_capture
+  
   def waiting?
     self.status == ScreenshotStatus.waiting.value
   end
@@ -28,6 +30,12 @@ class Screenshot < ActiveRecord::Base
     self.status = ScreenshotStatus.error.value
     self.captured_at = nil
     save!
+  end
+  
+  private
+  
+  def delayed_capture
+    self.delay.capture
   end
   
 end
