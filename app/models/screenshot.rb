@@ -6,6 +6,18 @@ class Screenshot < ActiveRecord::Base
   
   enum :status, ScreenshotStatus
   
+  def waiting?
+    self.status == ScreenshotStatus.waiting.value
+  end
+  
+  def captured?
+    self.status == ScreenshotStatus.captured.value
+  end
+  
+  def error?
+    self.status == ScreenshotStatus.error.value
+  end
+  
   def capture
     self.image = ScreenshotUtil.capture(self.url)
     self.status = ScreenshotStatus.captured.value

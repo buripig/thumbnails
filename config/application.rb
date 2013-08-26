@@ -79,6 +79,8 @@ module Thumbnails
       window_height: 768,
       stored_width: 512,
       stored_height: 384,
+      default_width: 200,
+      default_height: 150,
     }
   end
 end

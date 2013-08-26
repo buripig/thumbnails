@@ -8,6 +8,8 @@ Thumbnails::Application.routes.draw do
 
   root :to => 'index#index'
   
+  get "(:opt)/http*url" => "thumbnail#image"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
