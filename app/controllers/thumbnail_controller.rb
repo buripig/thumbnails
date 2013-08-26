@@ -3,8 +3,15 @@ class ThumbnailController < ApplicationController
   
   PARSE_PATH_REGEX = /\/((.*)\/)?(http.+)/
   PARSE_OPTION_REGEX = /([0-9]+)x([0-9]+)/
-  DEFAULT_WIDTH = Common.config[:default_width]
+  
+  DEFAULT_WIDTH  = Common.config[:default_width]
   DEFAULT_HEIGHT = Common.config[:default_height]
+  MICRO_WIDTH    = Common.config[:micro_width]
+  MICRO_HEIGHT   = Common.config[:micro_height]
+  SMALL_WIDTH    = Common.config[:small_width]
+  SMALL_HEIGHT   = Common.config[:small_height]
+  LARGE_WIDTH    = Common.config[:large_width]
+  LARGE_HEIGHT   = Common.config[:large_height]
   
   def image
     screenshot = Screenshot.where("url = ?", @url).first
@@ -26,19 +33,29 @@ class ThumbnailController < ApplicationController
   private
   
   def prepare
-    @option, @url = get_option_and_url
-    @width, @height = get_width_and_height(@option)
+    @url = get_url
+    @width, @height = get_width_and_height(params[:option])
   end
   
-  def get_option_and_url
+  def get_url
     PARSE_PATH_REGEX.match(request.original_fullpath)
-    return $2, $3
+    return $3
   end
   
   def get_width_and_height(option)
     return DEFAULT_WIDTH, DEFAULT_HEIGHT if option.blank?
-    PARSE_OPTION_REGEX.match(option)
-    return $1.present? ? $1.to_i : DEFAULT_WIDTH, $2.present? ? $2.to_i : DEFAULT_HEIGHT
+    if option == "micro"
+      return MICRO_WIDTH, MICRO_HEIGHT
+    elsif option == "small"
+      return SMALL_WIDTH, SMALL_HEIGHT
+    elsif option == "default"
+      return DEFAULT_WIDTH, DEFAULT_HEIGHT
+    elsif option == "large"
+      return LARGE_WIDTH, LARGE_HEIGHT
+    else
+      PARSE_OPTION_REGEX.match(option)
+      return $1.present? ? $1.to_i : DEFAULT_WIDTH, $2.present? ? $2.to_i : DEFAULT_HEIGHT
+    end
   end
   
   def send_image(screenshot, width, height)

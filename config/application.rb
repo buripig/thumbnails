@@ -72,15 +72,24 @@ module Thumbnails
     
     #common
     config.common = {
+      #exception mail
       email_from: "root@buripig.jp",
       stakeholder_emails: ["buripig@gmail.com"],
       exception_mail_enable: false,
+      #capture size
       window_width: 1024,
       window_height: 768,
       stored_width: 512,
       stored_height: 384,
+      #output size
       default_width: 200,
       default_height: 150,
+      micro_width: 60,
+      micro_height: 45,
+      small_width: 120,
+      small_height: 90,
+      large_width: 400,
+      large_height: 300,
     }
   end
 end
