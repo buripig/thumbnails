@@ -18,49 +18,58 @@
 
 <table class="table table-bordered">
   <caption><%= model_name %>一覧</caption>
-  <col width="20%">
-  <col width="38%">
-  <col width="8%">
-  <col width="8%">
-  <col width="8%">
-  <col width="8%">
+  <col width="25%">
+  <col width="45%">
+  <col width="10%">
+  <col width="10%">
   <col width="10%">
   <thead>
     <tr>
-      <th><%= attr_name :url %></th>
-      <th><%= attr_name :image %></th>
-      <th><%= attr_name :status %></th>
+      <th rowspan="3"><%= attr_name :url %></th>
+      <th rowspan="3"><%= attr_name :image %></th>
+      <th rowspan="3"><%= attr_name :status %></th>
       <th><%= attr_name :created_at %></th>
+      <th rowspan="3"></th>
+    </tr>
+    <tr>
       <th><%= attr_name :captured_at %></th>
+    </tr>
+    <tr>
       <th><%= attr_name :accessed_at %></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @screenshots.each do |screenshot| %>
     <tr>
-      <td>
+      <td rowspan="3">
         <%= link_to screenshot.url, screenshot.url, target: :_blank %>
       </td>
-      <td>
+      <td rowspan="3">
         <% if screenshot.status == ScreenshotStatus.captured.value %><%= tag :image, src: image_screenshot_path(screenshot), class: "original-image" %><% end %>
       </td>
-      <td>
+      <td rowspan="3">
         <%= screenshot_status screenshot.status %>
       </td>
       <td>
         <%= datetime screenshot.created_at, "%y/%m/%d %H:%M:%S" %>
       </td>
+      <td rowspan="3">
+        <div style="margin-bottom: 8px;">
+          <%= link_to "キャプチャ", capture_screenshot_path(screenshot), method: :post, data: { confirm: "キャプチャしてよろしいですか？" }, class: "btn" %>
+        </div>
+        <div>
+          <%= link_to '削除', screenshot, method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-danger" %>
+        </div>
+      </td>
+    </tr>
+    <tr>
       <td>
         <%= datetime screenshot.captured_at, "%y/%m/%d %H:%M:%S" %>
       </td>
+    </tr>
+    <tr>
       <td>
         <%= datetime screenshot.accessed_at, "%y/%m/%d %H:%M:%S" %>
-      </td>
-      <td>
-        <%= link_to "キャプチャ", capture_screenshot_path(screenshot), method: :post, data: { confirm: "キャプチャしてよろしいですか？" }, class: "btn" %>
-        &nbsp;&nbsp;
-        <%= link_to '削除', screenshot, method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-danger" %>
       </td>
     </tr>
     <% end %>
