@@ -8,7 +8,13 @@ Thumbnails::Application.routes.draw do
 
   root :to => 'index#index'
   
-  get "(:opt)/http*url" => "thumbnail#image"
+  get "(:option)/now_printing"   => "thumbnail#system_image", as: "now_printing",   defaults: {image_name: "now_printing"}
+  get "(:option)/capture_error"  => "thumbnail#system_image", as: "capture_error",  defaults: {image_name: "capture_error"}
+  get "(:option)/error"          => "thumbnail#system_image", as: "error",          defaults: {image_name: "error"}
+  get "(:option)/invalid_option" => "thumbnail#system_image", as: "invalid_option", defaults: {image_name: "invalid_option"}
+  get "(:option)/invalid_url"    => "thumbnail#system_image", as: "invalid_url",    defaults: {image_name: "invalid_url"}
+  
+  get "(:option)/http*url" => "thumbnail#image", as: "thumbnail"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

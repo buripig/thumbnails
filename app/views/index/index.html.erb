@@ -1,1 +1,14 @@
 <div>トップページ</div>
+
+<div style="margin-bottom: 10px;">
+  <%= tag :img, src: thumbnail_path(url: "://www.yahoo.co.jp/"), class: "top-sample" %>
+  <%= tag :img, src: thumbnail_path(url: "s://www.google.co.jp/"), class: "top-sample" %>
+</div>
+
+<div>
+  <%= tag :img, src: now_printing_path, class: "top-sample" %>
+  <%= tag :img, src: capture_error_path, class: "top-sample" %>
+  <%= tag :img, src: error_path, class: "top-sample" %>
+  <%= tag :img, src: invalid_option_path, class: "top-sample" %>
+  <%= tag :img, src: invalid_url_path, class: "top-sample" %>
+</div>
