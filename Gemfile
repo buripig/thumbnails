@@ -60,3 +60,6 @@ end
 gem 'rmagick', :require => 'RMagick'
 
 gem 'memcached'
+
+gem 'delayed_job_active_record'
+gem 'daemons' 
