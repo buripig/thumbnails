@@ -18,11 +18,13 @@ class ThumbnailController < ApplicationController
     if screenshot
       if screenshot.captured?
         send_image(screenshot, @width, @height)
-      else
-        render nothing: true
+      elsif screenshot.waiting?
+        send_system_image("now_printing", @width, @height)
+      elsif screenshot.error?
+        send_system_image("capture_error", @width, @height)
       end
     else
-      render nothing: true
+      send_system_image("error", @width, @height)
     end
   end
   
