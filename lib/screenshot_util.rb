@@ -1,7 +1,5 @@
 class ScreenshotUtil
   
-  @@browser = WebkitBrowser.new
-  
   FORMAT = "jpg"
   
   def self.capture(url)
@@ -21,11 +19,12 @@ class ScreenshotUtil
   
   def self.save(url, width, height)
     raise "URL is blank" if url.blank?
-    browser = @@browser
+    browser = WebkitBrowser.new
     browser.visit(url)
     browser.resize_window(width + 15, height)
     file_name = SecureRandom.hex(16)
     browser.save_screenshot(path(file_name), width: width + 15, height: height)
+    browser.stop
     return file_name
   end
   

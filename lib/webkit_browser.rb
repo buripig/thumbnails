@@ -23,6 +23,14 @@ class WebkitBrowser
     @session.driver.resize_window(width, height)
   end
   
+  def stop
+    @session.driver.browser.instance_eval do
+      @connection.instance_eval do
+        kill_process
+      end
+    end
+  end
+  
   private
   
   def create_capybara_session
