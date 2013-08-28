@@ -24,7 +24,13 @@ class ThumbnailController < ApplicationController
         send_system_image("capture_error", @width, @height)
       end
     else
-      send_system_image("error", @width, @height)
+      @screenshot        = Screenshot.new
+      @screenshot.url    = @url
+      @screenshot.status = ScreenshotStatus.waiting.value
+      Screenshot.transaction do
+        @screenshot.save!
+      end
+      send_system_image("now_printing", @width, @height)
     end
   end
   
