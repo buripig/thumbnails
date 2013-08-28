@@ -28,6 +28,7 @@ class Screenshot < ActiveRecord::Base
   rescue => ex
     self.image = nil
     self.status = ScreenshotStatus.error.value
+    self.error_info = cretae_error_info(ex)
     self.captured_at = nil
     save!
   end
@@ -36,6 +37,14 @@ class Screenshot < ActiveRecord::Base
   
   def delayed_capture
     self.delay.capture
+  end
+  
+  def cretae_error_info(ex)
+    ret = []
+    ret << "#{ex.class.to_s}: #{ex.message}"
+    ret << ""
+    ret << ex.backtrace.join("\r\n")
+    ret.join("\r\n")
   end
   
 end

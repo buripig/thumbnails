@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130826091625) do
+ActiveRecord::Schema.define(:version => 20130828140914) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0, :null => false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20130826091625) do
     t.datetime "accessed_at"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.text     "error_info"
   end
 
   add_index "screenshots", ["status"], :name => "index_screenshots_on_status"
