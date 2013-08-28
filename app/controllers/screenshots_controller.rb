@@ -2,7 +2,7 @@ class ScreenshotsController < ApplicationController
   
   def index
     @screenshot = Screenshot.new
-    @screenshots = Screenshot.select("id, url, status, captured_at, accessed_at, created_at").order("id DESC")
+    @screenshots = Screenshot.for_list_page
   end
   
   def create
@@ -13,6 +13,7 @@ class ScreenshotsController < ApplicationController
     end
     redirect_to screenshots_url
   rescue ActiveRecord::RecordInvalid
+    @screenshots = Screenshot.for_list_page
     render action: :index
   end
   

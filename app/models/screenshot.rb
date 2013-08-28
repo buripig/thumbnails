@@ -3,10 +3,15 @@ class Screenshot < ActiveRecord::Base
   
   validates_presence_of :url
   validates_format_of :url, with: URI::regexp(%w(http https)), allow_blank: true
+  validates_uniqueness_of :url
   
   enum :status, ScreenshotStatus
   
   after_create :delayed_capture
+  
+  scope :for_list_page, -> {
+    select("id, url, status, captured_at, accessed_at, created_at").order("id DESC")
+  }
   
   def waiting?
     self.status == ScreenshotStatus.waiting.value
