@@ -62,4 +62,6 @@ gem 'rmagick', :require => 'RMagick'
 gem 'memcached'
 
 gem 'delayed_job_active_record'
-gem 'daemons' 
+gem 'daemons'
+
+gem 'mail-iso-2022-jp'
