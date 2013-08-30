@@ -38,6 +38,10 @@ class Screenshot < ActiveRecord::Base
     save!
   end
   
+  def self.update_at_accessed(url)
+    self.update_all("accessed_at = current_timestamp, updated_at = current_timestamp", ["url = ?", url])
+  end
+  
   private
   
   def delayed_capture

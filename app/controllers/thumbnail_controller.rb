@@ -13,7 +13,16 @@ class ThumbnailController < ApplicationController
   LARGE_WIDTH    = Common.config[:large_width]
   LARGE_HEIGHT   = Common.config[:large_height]
   
+  @@memcached = Memcached.new("localhost:11211", 
+                              binary_protocol: true,
+                              prefix_key: "thumbnails_")
+  MEMCACHED_TTL = 60 * 60 * 24
+  
   def image
+    if cache = find_cache(@url, @width, @height)
+      send_cache(cache)
+      return
+    end
     screenshot = Screenshot.where("url = ?", @url).first
     if screenshot
       if screenshot.captured?
@@ -66,11 +75,32 @@ class ThumbnailController < ApplicationController
     end
   end
   
+  def get_memcached
+    @@memcached.clone
+  end
+  
+  def cache_key(url, width, height)
+    "/#{width}x#{height}/#{url}"
+  end
+  
+  def store_cache(data, screenshot, width, height)
+    get_memcached.set(cache_key(screenshot.url, width, height), data, MEMCACHED_TTL)
+  end
+  
+  def find_cache(url, width, height)
+    get_memcached.get(cache_key(url, width, height))  rescue nil
+  end
+  
+  def send_cache(cache)
+    send_data(cache, type: "image/#{ScreenshotUtil::FORMAT}", disposition: "inline")
+    Screenshot.update_at_accessed(@url)
+  end
+  
   def send_image(screenshot, width, height)
     data = Magick::ImageList.new.from_blob(screenshot.image).resize(width, height).to_blob
     send_data(data, type: "image/#{ScreenshotUtil::FORMAT}", disposition: "inline")
-    screenshot.accessed_at = DateTime.now
-    screenshot.save!
+    Screenshot.update_at_accessed(@url)
+    store_cache(data, screenshot, width, height)
   end
   
   def send_system_image(image_name, width, height)
