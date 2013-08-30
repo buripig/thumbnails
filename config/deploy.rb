@@ -51,7 +51,7 @@ namespace :deploy do
     run "cp -p ~/secret/thumbnails/newrelic.yml #{current_path}/config/"
     run "touch #{current_path}/tmp/restart.txt"
     run "wget -O- http://thumbnails.buripig.jp/ > /dev/null"
-    run "RAILS_ENV=production #{current_path}/script/delayed_job -n 2 -m --sleep-delay 1 --read-ahead 1 restart"
+    run "RAILS_ENV=production #{current_path}/script/delayed_job -n 3 -m restart"
   end
 end
 
