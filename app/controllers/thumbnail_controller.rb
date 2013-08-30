@@ -79,8 +79,9 @@ class ThumbnailController < ApplicationController
     @@memcached.clone
   end
   
+  require 'digest/sha2'
   def cache_key(url, width, height)
-    "/#{width}x#{height}/#{url}"
+    "/#{width}x#{height}/#{url.length > 200 ? Digest::SHA256.hexdigest(url) : url}"
   end
   
   def store_cache(data, screenshot, width, height)
