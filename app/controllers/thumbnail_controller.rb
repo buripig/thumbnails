@@ -6,12 +6,6 @@ class ThumbnailController < ApplicationController
   
   DEFAULT_WIDTH  = Common.config[:default_width]
   DEFAULT_HEIGHT = Common.config[:default_height]
-  MICRO_WIDTH    = Common.config[:micro_width]
-  MICRO_HEIGHT   = Common.config[:micro_height]
-  SMALL_WIDTH    = Common.config[:small_width]
-  SMALL_HEIGHT   = Common.config[:small_height]
-  LARGE_WIDTH    = Common.config[:large_width]
-  LARGE_HEIGHT   = Common.config[:large_height]
   
   @@memcached = Memcached.new("localhost:11211", 
                               binary_protocol: true,
@@ -61,14 +55,8 @@ class ThumbnailController < ApplicationController
   
   def get_width_and_height(option)
     return DEFAULT_WIDTH, DEFAULT_HEIGHT if option.blank?
-    if option == "micro"
-      return MICRO_WIDTH, MICRO_HEIGHT
-    elsif option == "small"
-      return SMALL_WIDTH, SMALL_HEIGHT
-    elsif option == "default"
-      return DEFAULT_WIDTH, DEFAULT_HEIGHT
-    elsif option == "large"
-      return LARGE_WIDTH, LARGE_HEIGHT
+    if size = (Common.config[:output_sizes] || []).detect{|e|e[:name] == option}
+      return size[:width], size[:height]
     else
       PARSE_OPTION_REGEX.match(option)
       return $1.present? ? $1.to_i : DEFAULT_WIDTH, $2.present? ? $2.to_i : DEFAULT_HEIGHT

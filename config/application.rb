@@ -84,12 +84,12 @@ module Thumbnails
       #output size
       default_width: 200,
       default_height: 150,
-      micro_width: 60,
-      micro_height: 45,
-      small_width: 120,
-      small_height: 90,
-      large_width: 400,
-      large_height: 300,
+      output_sizes: [
+        {name: "micro",   width: 60,  height: 45},
+        {name: "small",   width: 120, height: 90},
+        {name: "default", width: 200, height: 150},
+        {name: "large",   width: 400, height: 300},
+      ],
     }
   end
 end
