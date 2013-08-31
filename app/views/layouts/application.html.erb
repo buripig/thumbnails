@@ -14,10 +14,13 @@
       <%
       menus = [
         {text: "TOP", url: root_path, token: "index"},
-        {text: "管理", url: [
-            {text: "Screenshot", url: screenshots_path, token: "screenshot"},
-          ], token: "manage"},
       ]
+      if request.path.match(/^\/manage\//)
+        menus << {text: "管理", 
+          url: [
+            {text: "Screenshot", url: screenshots_path, token: "screenshot"},
+          ], token: "manage"}
+      end 
       %>
       <ul class="nav">
         <% menus.each do |menu| %>

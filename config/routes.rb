@@ -4,6 +4,7 @@ Thumbnails::Application.routes.draw do
       get :image, on: :member
     end
   end
+  match "/manage" => redirect("/manage/screenshots")
 
   root :to => 'index#index'
   
