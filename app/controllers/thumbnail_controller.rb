@@ -73,7 +73,7 @@ class ThumbnailController < ApplicationController
   end
   
   def store_cache(data, screenshot, width, height)
-    get_memcached.set(cache_key(screenshot.url, width, height), data, MEMCACHED_TTL)
+    get_memcached.set(cache_key(screenshot.url, width, height), data, MEMCACHED_TTL) rescue nil
   end
   
   def find_cache(url, width, height)
