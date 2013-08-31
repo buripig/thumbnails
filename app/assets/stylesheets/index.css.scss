@@ -5,3 +5,50 @@
 img.top-sample {
   border: solid 1px #aaa;
 }
+
+span.root {
+  color: blue;
+}
+
+span.url {
+  color: orange;
+}
+
+span.option {
+  color: green;
+}
+
+div.url-format {
+  font-size: 250%;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+div.examples {
+  margin-bottom: 20px;
+  div.example {
+    font-size: 130%;
+    margin-bottom: 15px;
+    div {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+table.option-table {
+  margin-bottom: 20px;
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
+}
+
+p.description {
+  font-size: 150%;
+  line-height: 150%;
+  margin-bottom: 20px;
+}
+
+p.attention {
+  color: red;
+}

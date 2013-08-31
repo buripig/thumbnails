@@ -1,14 +1,83 @@
-<div>トップページ</div>
+<%
+@root = "#{request.protocol}#{request.host_with_port}/"
+%>
+<p class="attention">
+  （このサイトはサンプルサイトです。予告なく閉鎖される可能性があります。）
+</p>
 
-<div style="margin-bottom: 10px;">
-  <%= tag :img, src: thumbnail_path(url: "://www.yahoo.co.jp/"), class: "top-sample" %>
-  <%= tag :img, src: thumbnail_path(url: "s://www.google.co.jp/"), class: "top-sample" %>
+<h3>WEB画面サムネイル画像生成サービス</h3>
+
+<h1>使い方</h1>
+
+<div class="url-format">
+  <span class="root"><%= @root %></span><span class="url">URL</span>
 </div>
 
-<div>
-  <%= tag :img, src: now_printing_path, class: "top-sample" %>
-  <%= tag :img, src: capture_error_path, class: "top-sample" %>
-  <%= tag :img, src: error_path, class: "top-sample" %>
-  <%= tag :img, src: invalid_option_path, class: "top-sample" %>
-  <%= tag :img, src: invalid_url_path, class: "top-sample" %>
+<div class="examples">
+  <% ["http://www.yahoo.co.jp/"].each do |url| %>
+  <div class="example">
+    <div>
+      <a href="<%= @root %><%= url %>" target="_blank">
+        <span class="root"><%= @root %></span><span class="url"><%= url %></span>
+      </a>
+    </div>
+    <div>
+      <img src="<%= @root %><%= url %>" class="top-sample">
+    </div>
+  </div>
+  <% end %>
 </div>
+
+<h1>オプション指定</h1>
+
+<div class="url-format">
+  <span class="root"><%= @root %></span><span class="option">OPTION/</span><span class="url">URL</span>
+</div>
+
+<table class="table-bordered option-table">
+  <% Common.config[:output_sizes].each do |size| %>
+  <tr>
+    <th><%= size[:name] %></th>
+    <td><%= size[:width] %>x<%= size[:height] %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <th>数値指定</th>
+    <td>(n)x(n)</td>
+  </tr>
+  <tr>
+    <th>指定なし</th>
+    <td><%= Common.config[:default_width] %>x<%= Common.config[:default_height] %></td>
+  </tr>
+</table>
+
+<div class="examples">
+  <% [
+       ["http://rubyonrails.org/", "micro"],
+       
+       ["https://www.facebook.com/FacebookJapan", "small"],
+       ["http://sportsnavi.yahoo.co.jp/sports/soccer/eusoccer/headlines/article/20130828-00000025-goal", "default"],
+       ["http://www.youtube.com/", "large"],
+       ["http://www.amazon.co.jp/TV%E3%82%B2%E3%83%BC%E3%83%A0/b/ref=sa_menu_tvgames?ie=UTF8&node=637394", "512x384"],
+     ].each do |url| %>
+  <div class="example">
+    <div>
+      <a href="<%= @root %><%= url[1] %>/<%= url[0] %>" target="_blank">
+        <span class="root"><%= @root %></span><span class="option"><%= url[1] %>/</span><span class="url"><%= url[0] %></span>
+      </a>
+    </div>
+    <div>
+      <img src="<%= @root %><%= url[1] %>/<%= url[0] %>" class="top-sample">
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<h1>その他</h1>
+
+<p class="description">
+  未キャプチャのURLが指定された場合は
+  <%= tag :img, src: now_printing_path(option: "micro"), class: "top-sample" %>
+  を返しますが、<br/>
+  しばらく後にキャプチャが完了し、サムネイル画像が返ってくるようになります。
+</p>
