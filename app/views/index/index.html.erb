@@ -8,11 +8,9 @@
 <h3>WEB画面サムネイル画像生成サービス</h3>
 
 <h1>使い方</h1>
-
 <div class="url-format">
   <span class="root"><%= @root %></span><span class="url">URL</span>
 </div>
-
 <div class="examples">
   <% ["http://www.yahoo.co.jp/"].each do |url| %>
   <div class="example">
@@ -29,11 +27,9 @@
 </div>
 
 <h1>オプション指定</h1>
-
 <div class="url-format">
   <span class="root"><%= @root %></span><span class="option">OPTION/</span><span class="url">URL</span>
 </div>
-
 <table class="table-bordered option-table">
   <% Common.config[:output_sizes].each do |size| %>
   <tr>
@@ -50,7 +46,6 @@
     <td><%= Common.config[:default_width] %>x<%= Common.config[:default_height] %></td>
   </tr>
 </table>
-
 <div class="examples">
   <% [
        ["http://rubyonrails.org/", "micro"],
@@ -74,10 +69,14 @@
 </div>
 
 <h1>その他</h1>
-
 <p class="description">
   未キャプチャのURLが指定された場合は
   <%= tag :img, src: now_printing_path(option: "micro"), class: "top-sample" %>
   を返しますが、<br/>
   しばらく後にキャプチャが完了し、サムネイル画像が返ってくるようになります。
+</p>
+
+<h1>Github</h1>
+<p class="description">
+  <a href="https://github.com/buripig/thumbnails" target="_blank">buripig/thumbnails</a>
 </p>
