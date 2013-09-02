@@ -9,8 +9,12 @@ class Screenshot < ActiveRecord::Base
   
   after_create :delayed_capture
   
-  scope :for_list_page, -> {
-    select("id, url, status, captured_at, accessed_at, created_at").order("id DESC")
+  paginates_per 3
+  
+  scope :for_list_page, ->(page) {
+    select("id, url, status, captured_at, accessed_at, created_at").
+      order("id DESC").
+      page(page.blank? ? 1 : page)
   }
   
   def waiting?

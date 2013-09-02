@@ -2,7 +2,7 @@ class ScreenshotsController < ApplicationController
   
   def index
     @screenshot = Screenshot.new
-    @screenshots = Screenshot.for_list_page
+    @screenshots = Screenshot.for_list_page(params[:page])
   end
   
   def create

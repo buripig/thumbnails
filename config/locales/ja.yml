@@ -199,3 +199,10 @@ ja:
   activerecord:
     errors:
       <<: *errors
+  views:
+    pagination:
+      first: "&laquo; First"
+      last: "Last &raquo;"
+      previous: "&lt; Prev"
+      next: "Next &gt;"
+      truncate: "..."

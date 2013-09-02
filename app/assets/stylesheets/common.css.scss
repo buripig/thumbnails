@@ -42,14 +42,6 @@ input[type="checkbox"] {
   margin: 0px 0 0;
 }
 
-table caption {
-  padding: 5px;
-  text-align: left;
-  font-weight: bold;
-  font-size: 140%;
-  color: #777;
-}
-
 label {
   display: inline;
   font-weight: bold;
@@ -161,6 +153,35 @@ div.main-area {
   
   td, th {
     word-break: break-all;
+  }
+}
+
+table caption {
+  padding: 5px;
+  text-align: left;
+  div.title {
+    float: left;
+    font-weight: bold;
+    font-size: 140%;
+    color: #777;
+  }
+}
+
+div.paging {
+  float: right;
+}
+
+/*
+ * Kaminari
+*/
+nav.pagination {
+  margin: 0;
+  font-size: 120%;
+  span.current {
+    font-weight: bold;
+  }
+  span.next, span.prev {
+    color: #aaa;
   }
 }
 

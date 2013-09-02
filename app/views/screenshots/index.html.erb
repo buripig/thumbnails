@@ -17,7 +17,15 @@
 <% end %>
 
 <table class="table table-bordered">
-  <caption><%= model_name %>一覧</caption>
+  <caption>
+    <div class="title">
+      <%= model_name %>一覧（<%= @screenshots.total_count %>件）
+    </div>
+    <div class="paging">
+      <%= paginate @screenshots %>
+    </div>
+    <div class="clear"></div>
+  </caption>
   <col width="30%">
   <col width="45%">
   <col width="10%">
@@ -69,4 +77,12 @@
     </tr>
     <% end %>
   </tbody>
+  <tfoot>
+    <td colspan="5">
+      <div class="paging">
+        <%= paginate @screenshots %>
+      </div>
+      <div class="clear"></div>
+    </td>
+  </tfoot>
 </table>

@@ -65,3 +65,5 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 
 gem 'mail-iso-2022-jp'
+
+gem 'kaminari'
