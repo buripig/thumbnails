@@ -24,8 +24,9 @@ class ScreenshotUtil
     browser.resize_window(width + 15, height)
     file_name = SecureRandom.hex(16)
     browser.save_screenshot(path(file_name), width: width + 15, height: height)
-    browser.stop
     return file_name
+  ensure
+    browser.stop unless browser.nil?
   end
   
   def self.read(file_name)
